@@ -1,0 +1,6 @@
+module.exports = {
+    sid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    authToken: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    hostname: 'waltzstep.com',
+    phoneNumber: '+16269239971'
+};

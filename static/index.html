@@ -5,7 +5,7 @@
     <link href='http://fonts.googleapis.com/css?family=Old+Standard+TT&subset=latin' rel='stylesheet' type='text/css'>
 
     <style>
-        h1, h2 {
+        body {
             font-family: 'Old Standard TT', serif;
         }
         
@@ -40,14 +40,18 @@ $(function() {
 
         for(var i = 0; i < numTexts; i++) {
             (function(text) {
-                var content = '<div>' + text.text + '</div>';
+                var textDate = new Date(text.date);
+                
+                var content = '<div><b>' + textDate.toDateString() + ' ' + 
+                    textDate.toLocaleTimeString() + '</b><br>' + text.text + '</div>';
+
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(text.location.lat, text.location.lng),
                     map: map,
                     title: text.text 
                 });
                     
-                var popup = new google.maps.InfoWindow({content: text.text});
+                var popup = new google.maps.InfoWindow({content: content});
 
                 google.maps.event.addListener(marker, 'click', function() {
                     popup.open(map, marker);
@@ -60,9 +64,24 @@ $(function() {
     </script>
 </head>
 <body>
-    <h1>TxtAtlas</h2>
-    <h2>Send a text to 1-626-923-9971 to put your txt on the map!</h2>
-    <div id="map_canvas" style="width:100%; height:100%"></div>
+    <div style="width:100%;">
+    <center>
+        <h1>TxtAtlas</h2>
+        <h2>Send a txt to 1-626-923-9971 to put your txt on the map!</h2>
+    </center>
+    </div>
+    <div id="map_canvas" style="width:100%; height:80%"></div>
+    <div style="width:100%; height:20px;">
+        <center>
+            A <a href="http://stephenwalters.posterous.com">Stephen J. Walters</a> joint.<br>
+            Built with: 
+            <a href="http://nodejs.org">Node.js</a>,
+            <a href="http://twilio.com">Twilio</a>,
+            <a href="http://github.com/sjwalter/node-twilio">Node-Twilio</a>,
+            <a href="http://redis.io">Redis</a>, and
+            <a href="http://maps.google.com">Google Maps</a>.
+    </div>
+
 </body>
 </html>
 

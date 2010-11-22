@@ -1,0 +1,7 @@
+This is a simple app demoing my Node-Twilio library.
+
+TxtAtlas puts your texts on the map!
+
+Texts are sent to a Twilio number, and then stored in a Redis database. When you visit the website, all the texts are represented as pins using the excellent Google Maps API.
+
+This little project makes use of lots of great open source software: Node.js, Redis, Node-Redis, and Node-Twilio. It is built with two outstanding REST APIs as well: the Google Maps and Twilio APIs.

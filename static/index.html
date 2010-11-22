@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <title>The TxtAtlas</title>
+    <link href='http://fonts.googleapis.com/css?family=Old+Standard+TT&subset=latin' rel='stylesheet' type='text/css'>
+
+    <style>
+        h1, h2 {
+            font-family: 'Old Standard TT', serif;
+        }
+        
+        html { 
+            height: 100% 
+        }
+        
+        body { 
+            height: 100%; 
+            margin: 0px; 
+            padding: 0px 
+        }
+    </style>
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+    <script type="text/javascript">
+$(function() {
+    // Set up the map
+    var mapOpts = {
+        zoom: 4,
+        center: new google.maps.LatLng(45.828799,-75.498047),
+        disableDefaultUI: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    },
+        map = new google.maps.Map(document.getElementById('map_canvas'), mapOpts);
+
+    // Get all of the current pins
+    $.getJSON('/pins', null, function(texts) {
+        var numTexts = texts.length;
+
+        for(var i = 0; i < numTexts; i++) {
+            (function(text) {
+                var content = '<div>' + text.text + '</div>';
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(text.location.lat, text.location.lng),
+                    map: map,
+                    title: text.text 
+                });
+                    
+                var popup = new google.maps.InfoWindow({content: text.text});
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    popup.open(map, marker);
+                });
+            })(texts[i]);
+        }
+    });
+    
+});
+    </script>
+</head>
+<body>
+    <h1>TxtAtlas</h2>
+    <h2>Send a text to 1-626-923-9971 to put your txt on the map!</h2>
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+</body>
+</html>
+

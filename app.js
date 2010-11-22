@@ -106,7 +106,9 @@ app.get('/pins', function(req, response) {
                         console.log(err);
                         texts.push(null);
                     } else {
-                        texts.push(JSON.parse(result));
+                        var tmp = JSON.parse(result);
+                        delete tmp.from;
+                        texts.push(tmp);
                     }
 
                     if(texts.length == numTexts) {

@@ -59,18 +59,20 @@ phone.setup(function() {
                 return;
             }
             
-            sms.location.lat = res.results[0].geometry.location.lat;
-            sms.location.lng = res.results[0].geometry.location.lng;
+            if(res && res.results && res.results[0] && res.results[0].geometry) {
+                sms.location.lat = res.results[0].geometry.location.lat;
+                sms.location.lng = res.results[0].geometry.location.lng;
 
-            console.log('Storing text in redis.');
-            redis.get('texts:count', function(err, res) {
-                var curTextIndex = res;
+                console.log('Storing text in redis.');
+                redis.get('texts:count', function(err, res) {
+                    var curTextIndex = res;
 
-                console.log('There are ' + curTextIndex + ' texts in redis. Adding one');
+                    console.log('There are ' + curTextIndex + ' texts in redis. Adding one');
 
-                redis.set('texts:' + curTextIndex, JSON.stringify(sms));
-                redis.incr('texts:count');
-            });
+                    redis.set('texts:' + curTextIndex, JSON.stringify(sms));
+                    redis.incr('texts:count');
+                });
+            };
         });
     });
 });

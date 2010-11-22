@@ -53,7 +53,13 @@ $(function() {
                     textDate.toLocaleTimeString() + '</b><br>' + text.text + '</div>';
 
                 var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(text.location.lat, text.location.lng),
+                    // Since the geodata we have is pretty much only down to the city,
+                    // we'll fudge the latlng a tiny bit, so that we don't get all the
+                    // pins from one city in one exact location
+                    position: new google.maps.LatLng(
+                        text.location.lat - Math.random() * 0.01,
+                        text.location.lng + Math.random() * 0.01
+                    ),
                     map: map,
                     title: text.text 
                 });
@@ -66,7 +72,6 @@ $(function() {
             })(texts[i]);
         }
     });
-    
 });
     </script>
 </head>

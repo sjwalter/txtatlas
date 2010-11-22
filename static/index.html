@@ -48,9 +48,11 @@ $(function() {
         for(var i = 0; i < numTexts; i++) {
             (function(text) {
                 var textDate = new Date(text.date);
+
+                var sanitisedText = text.text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
                 
                 var content = '<div><b>' + textDate.toDateString() + ' ' + 
-                    textDate.toLocaleTimeString() + '</b><br>' + text.text + '</div>';
+                    textDate.toLocaleTimeString() + '</b><br>' + sanitisedText + '</div>';
 
                 var marker = new google.maps.Marker({
                     // Since the geodata we have is pretty much only down to the city,
